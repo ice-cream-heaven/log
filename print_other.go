@@ -1,4 +1,4 @@
-//go:build !debug && !release
+//go:build !debug && !release && !discard
 
 package log
 

@@ -1,8 +1,12 @@
-//go:build debug && !discard
+//go:build !release && !debug && discard
 
 package log
 
 import "fmt"
+
+func init() {
+	SetOutput(io.Discard)
+}
 
 func Debug(args ...interface{}) {
 	std.Debug(args...)

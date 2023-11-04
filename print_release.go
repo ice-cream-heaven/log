@@ -1,4 +1,4 @@
-//go:build release
+//go:build release && !discard
 
 package log
 
@@ -8,7 +8,6 @@ import (
 )
 
 func init() {
-	//SetOutput(NewAsyncWriter(GetOutputWriterHourly(filepath.Join(os.TempDir(), "ice", "log") + "/")))
 	SetOutput((GetOutputWriterHourly(filepath.Join(os.TempDir(), "ice", "log") + "/")))
 }
 
