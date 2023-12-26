@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/nats-io/nuid v1.0.1
-	github.com/petermattis/goid v0.0.0-20230904192822-1876fd5063bc
+	github.com/petermattis/goid v0.0.0-20231207134359-e60b3f734c67
 	go.uber.org/zap v1.26.0
 )
 
