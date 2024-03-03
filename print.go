@@ -6,6 +6,10 @@ func Trace(args ...interface{}) {
 	std.Trace(args...)
 }
 
+func Log(level Level, args ...interface{}) {
+	std.Log(level, args...)
+}
+
 func Info(args ...interface{}) {
 	std.Info(args...)
 }
@@ -24,6 +28,10 @@ func Panic(args ...interface{}) {
 
 func Fatal(args ...interface{}) {
 	std.Fatal(args...)
+}
+
+func Logf(level Level, format string, args ...interface{}) {
+	std.Logf(level, format, args...)
 }
 
 func Infof(format string, args ...interface{}) {

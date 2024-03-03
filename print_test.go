@@ -1,7 +1,9 @@
 package log_test
 
 import (
+	"github.com/elliotchance/pie/v2"
 	"github.com/ice-cream-heaven/log"
+	"os"
 	"sync"
 	"testing"
 )
@@ -29,4 +31,29 @@ func TestPrint(t *testing.T) {
 	}()
 
 	w.Wait()
+}
+
+func TestFilename(t *testing.T) {
+	files, err := os.ReadDir("D:\\Cache\\Temp")
+	if err != nil {
+		t.Errorf("err:%v", err)
+		return
+	}
+
+	pie.Each(
+		pie.SortUsing(
+			pie.Map(
+				files,
+				func(file os.DirEntry) string {
+					return file.Name()
+				},
+			),
+			func(a, b string) bool {
+				return a > b
+			},
+		),
+		func(s string) {
+			t.Log(s)
+		},
+	)
 }

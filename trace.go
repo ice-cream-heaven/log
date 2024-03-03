@@ -32,8 +32,12 @@ func GetTrace() []byte {
 	return getTrace(goid.Get())
 }
 
-func SetTrace(traceId string) {
-	setTrace(goid.Get(), traceId)
+func SetTrace(traceId ...string) {
+	if len(traceId) > 0 {
+		setTrace(goid.Get(), traceId[0])
+		return
+	}
+	setTrace(goid.Get(), "")
 }
 
 func DelTrace() {

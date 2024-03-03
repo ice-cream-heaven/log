@@ -604,7 +604,4 @@ next-env.d.ts
 *.rej
 secring.*
 
-conf.yaml
-!config.example.yaml
-*.ttf
-*.mmdb
+Makefile

@@ -1,6 +1,9 @@
 package log
 
 import (
+	"fmt"
+	"github.com/elliotchance/pie/v2"
+	"github.com/ice-cream-heaven/utils/unit"
 	"io"
 	"os"
 	"path/filepath"
@@ -40,6 +43,10 @@ func isDir(path string) bool {
 	return s.IsDir()
 }
 
+var (
+	cleanRotatelogOnce = make(map[string]bool)
+)
+
 func GetOutputWriterHourly(filename string) Writer {
 	if filepath.Dir(filename) != filename && !isDir(filepath.Dir(filename)) {
 		err := os.MkdirAll(filepath.Dir(filename), os.ModePerm)
@@ -51,11 +58,54 @@ func GetOutputWriterHourly(filename string) Writer {
 	hook, err := rotatelogs.
 		New(filename+"%Y%m%d%H.log",
 			rotatelogs.WithLinkName(filename+".log"),
+			rotatelogs.WithRotationSize(unit.MB*100),
 			rotatelogs.WithRotationTime(time.Hour),
-			rotatelogs.WithRotationCount(24),
+			rotatelogs.WithRotationCount(12),
 		)
 	if err != nil {
 		std.Panicf("err:%v", err)
+	}
+
+	if _, ok := cleanRotatelogOnce[filename]; !ok {
+		go func() {
+			for {
+				files, err := os.ReadDir(filepath.Dir(filename))
+				if err != nil {
+					fmt.Printf("err:%v\n", err)
+					continue
+				}
+
+				pie.Each(
+					pie.DropTop(
+						pie.SortUsing(
+							pie.Map(
+								files,
+								func(file os.DirEntry) string {
+									return file.Name()
+								},
+							),
+							func(a, b string) bool {
+								return a > b
+							},
+						),
+						12,
+					),
+					func(s string) {
+						if s == ".log" {
+							return
+						}
+
+						fmt.Printf("remove:%s\n", s)
+						err = os.Remove(filepath.Join(filepath.Dir(filename), s))
+						if err != nil {
+							Errorf("err:%v", err)
+						}
+					})
+
+				time.Sleep(time.Minute * 10)
+			}
+		}()
+		cleanRotatelogOnce[filename] = true
 	}
 
 	return hook
