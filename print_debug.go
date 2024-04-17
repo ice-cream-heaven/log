@@ -1,4 +1,4 @@
-//go:build debug && !discard
+//go:build debug
 
 package log
 

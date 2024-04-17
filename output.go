@@ -58,7 +58,7 @@ func GetOutputWriterHourly(filename string) Writer {
 	hook, err := rotatelogs.
 		New(filename+"%Y%m%d%H.log",
 			rotatelogs.WithLinkName(filename+".log"),
-			rotatelogs.WithRotationSize(unit.MB*100),
+			rotatelogs.WithRotationSize(unit.MB*50),
 			rotatelogs.WithRotationTime(time.Hour),
 			rotatelogs.WithRotationCount(12),
 		)
@@ -88,7 +88,7 @@ func GetOutputWriterHourly(filename string) Writer {
 								return a > b
 							},
 						),
-						12,
+						6,
 					),
 					func(s string) {
 						if s == ".log" {

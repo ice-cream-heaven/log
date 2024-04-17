@@ -8,7 +8,7 @@ require (
 	github.com/nats-io/nuid v1.0.1
 	github.com/petermattis/goid v0.0.0-20231207134359-e60b3f734c67
 	github.com/spf13/cobra v1.8.0
-	go.uber.org/zap v1.26.0
+	go.uber.org/zap v1.27.0
 )
 
 require (
@@ -19,8 +19,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/stretchr/testify v1.8.4 // indirect
-	go.uber.org/goleak v1.3.0 // indirect
+	github.com/stretchr/testify v1.9.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/exp v0.0.0-20240205201215-2c58cdc269a3 // indirect
+	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225 // indirect
 )
